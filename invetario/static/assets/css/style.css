@@ -1,0 +1,327 @@
+:root{
+    --bg-color: #fff;
+    --bg-second-color:#262626;
+    --main-color1:#1a2035;
+    --main-color:#007ff4;
+    --text-color:#55555;
+    --text-color2:#fff;
+}
+section{
+    padding: 0rem  8% 2rem;
+    min-height: 100vh;
+}
+
+    
+/*Estilos de cambiar contraseña su contenedor padre*/
+.mx-auto{
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background-color:#fff;
+    border-radius: 10px;
+}
+/* Estilos del Home */
+.content{
+    padding-top: 110px !important;
+}
+.card {
+    display:flex;
+    justify-content:center;
+    min-height:78vh;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 5px 3%;
+    margin-top:50px ;
+}
+
+@media (max-width:900px){
+    .card{
+        padding: 20px 5%;
+    }
+    
+}
+.card-content {
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:space-between ;
+    align-items: center;
+    gap:2rem;
+}
+.moving-text{
+    max-width:470px;
+}
+.moving-text h1{
+    font-size: 45px;
+    font-weight:900;
+    color:#555555;
+}
+.moving-text p{
+    font-size:16px;
+    margin:0 0 20px;
+    color:#555555;
+}
+.moving-text .text-animate{
+    position: relative;
+    width:328px;
+}
+.moving-text .text-animate h3 {
+    font-size: 29px;
+    font-weight:600;
+    letter-spacing: 1px;
+    color:transparent;
+    -webkit-text-stroke:.7px #007bff;
+    background-image:linear-gradient(#007bff,#007bff);
+    background-repeat:no-repeat;
+    -webkit-background-clip:text;
+    background-position:0 0 ;
+    animation:homeBgText 6s linear infinite;
+    animation-delay:2s;
+}
+
+
+#boton{
+    position: relative;
+    font-size: 15px;
+    border: 2px solid #1a2035;
+    color: #fff;
+    border-radius: 5px;
+    padding:14px 50px;
+    text-shadow: 0 0 1px #1a2035;
+    transition: .3s ease;
+    background: transparent;
+    overflow: hidden;
+    z-index: 1;
+    &:hover{
+        color:#1a2035;
+    }
+}
+.moving-text #boton::before{
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a2035;
+    transition: .3s ease;
+    z-index: -1;
+}
+.moving-text #boton:hover:before{
+    width: 0%;
+}
+.image-container {
+    text-align: center;
+}
+
+.card-image {
+    max-width: 500px;
+    min-height:300px;
+    object-fit:cover; 
+    border-radius: 8px;
+}
+.slogan {
+    margin-top: 20px;
+}
+.slogan p {
+    font-size: 16px;
+    color: #666666;
+}
+.social-redes{
+    margin-top:40px;
+    display: flex;
+    gap: 20px;
+}
+.social-redes a i{
+    font-size: 30px;
+    color: #555555;
+    transition: .5s ease;
+
+    &:hover{
+        transform: translateY(-10px);
+        color: #084798;
+    }
+}
+
+ /* Estilos de ejemplo para alinear texto e imagen horizontalmente */
+ .logo-container {
+    display: flex; /* Utiliza flexbox */
+    align-items: center; /* Alinea verticalmente al centro */
+    text-decoration: none; /* Quita la decoración de texto del enlace */
+}
+
+.logo-text {
+    margin-left: 10px; /* Espacio a la izquierda del texto */
+    font-size: 18px; /* Tamaño de fuente del texto */
+    font-weight: bold; /* Texto en negrita */
+    color: #ffffff; /* Color del texto */
+}
+
+.logo-img {
+    width: 50px; /* Ancho de la imagen */
+    height: 50px; /* Altura de la imagen */
+    border-radius: 50%; /* Borde redondeado para la imagen (opcional) */
+}
+
+/* Estilos para los gráficos */
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+.chart-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+@media (max-width:1300px){
+    .card{
+        padding:20px 4%;
+    }
+    .moving-text h2{
+        font-size:35px;
+    }
+    .card-image {
+        width: 100%;
+        min-height:250px;
+        object-fit:cover; 
+        border-radius: 8px;
+    }
+}
+
+@media (max-width:1200px){
+    .moving-text{
+        max-width:350px;	
+    }
+}
+
+@media (max-width:800px){
+    .card{
+        min-height:90vh;
+        padding-top:7rem;
+        padding-bottom:7rem;
+    }
+    .card-content {
+        flex-direction: column-reverse;
+    }
+    .moving-text{
+        min-width:100%;
+        padding-right:1px;
+        
+    }
+    .card-image {
+        min-width: 80vw;
+        min-height:250px;
+        object-fit:cover; 
+        border-radius: 8px;
+    }
+
+    .moving-text h2 {
+        font-size:35px;
+    }
+    .moving-text .text-animate{
+        width:293px;
+    }
+    .moving-text .text-animate h3{
+        font-size:26px;
+        letter-spacing:none;
+    }
+}
+
+.boton_arriba{
+    position: fixed;
+    bottom: 50px;
+    right: -100px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background: var(--main-color);
+    border-radius: 50%;
+    transition: 1s linear;
+    z-index: 80;
+     
+}
+
+.boton_arriba i{
+   font-size: 25px;
+    color: #fff;
+}
+
+
+@media (max-width:1100px){
+    html{
+        font-size:55%;
+    }
+}
+
+@media (max-width:800px){
+    section{
+        padding:9rem 4% 2rem; 
+    }
+}
+
+/*Estilos para mensajes */
+#alert-success{
+background:#fff;
+}
+.lista-mensajes{
+    width:100%;
+    list-style: none;
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0px 0px;
+    margin:0px 0px 1px;
+}
+.lista-mensajes li{
+    color:#555;
+}
+
+/*Estilos para mi tabla donde voy a listar datos*/
+table {
+border-collapse: separate;
+text-indent: initial;
+border-spacing:0.1px;
+}
+
+thead,tfoot{
+    text-align:center;
+    font-size:13px;
+    box-shadow:0 0px 2px #ebedf2;
+}
+thead,tfoot tr{
+    box-shadow:0 0px 2px #ebedf2;
+}
+
+table td,th{
+    padding:0 5px;
+    height:50px;
+    box-shadow: 10px 0px 40px #ebecec;
+    border-color: 2px #ebedf2;
+    background-color:#fff;
+    color:000;
+    font-size:13px;
+    text-align:center;
+    color:var(--bs-emphasis-color) !important;
+}
+
+.nav-primary p,i{
+    color:var(--bs-emphasis-color) !important;
+}
+
+/*Estilos de mi formulario*/
+.row{
+    justify-content: center;
+    align-items: center;
+}
+@media (max-width:450px) 
+{
+    .card-body, .form-group
+    {
+        padding: 0rem;
+    }
+}
+
+
+

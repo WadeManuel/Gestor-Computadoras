@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	{% block title %}<title>Sistema de Seguridad Informática Gestor Inventario</title>{% endblock %}
+
+    {% load static %}
+	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+	<link rel="icon" href="{% static 'assets/img/icon.ico' %}" type="image/x-icon"/>
+	<!-- Fonts and icons -->
+	<script src="{% static 'assets/js/plugin/webfont/webfont.min.js' %}"></script>
+	<script>
+		WebFont.load({
+			google: {"families":["Lato:300,400,700,900"]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ["{% static '/assets/css/fonts.min.css' %}"]},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+	
+
+	<!-- CSS Files -->	
+	<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/atlantis.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/lista.css' %}">
+
+	<!-- CSS Just for demo purpose, don't include it in your project -->
+	<link rel="stylesheet" href="{% static 'assets/css/demo.css' %}">
+</head>
+<body>
+	<div class="wrapper" id="home">
+		<div class="main-header">
+			<!-- Logo Header -->
+			<div class="logo-header" data-background-color="" style="background-color:#1d4e82;box-shadow:0 0 1px #000">
+				<a href="{% url 'base' %}" class="logo-container logo d-flex align-items-center" >
+					
+					<span class="logo-text logo-img">SIGC</span>
+				</a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon">
+						<i class="icon-menu"></i>
+					</span>
+				</button>
+				<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+				<div class="nav-toggle">
+					<button class="btn btn-toggle toggle-sidebar">
+						<i class="icon-menu"></i>
+					</button>
+				</div>
+			</div>
+			<!-- End Logo Header -->
+
+			<!-- Navbar Header -->
+			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="" style="background-color:#1d4e89">
+				<div class="container-fluid">
+					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+						<!-- User Profile Dropdown -->
+						<li class="nav-item dropdown hidden-caret">
+							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
+								<div class="d-flex align-items-center">
+									<div class="avatar-sm">
+										<img src="{% static 'assets/img/mlane.jpg' %}" alt="User Avatar" class="avatar-img rounded-circle">
+									</div>
+									<span class="ml-2 text-white"><strong>Welcome, {{ user.username }}</strong></span>
+								</div>
+							</a>
+							<ul class="dropdown-menu dropdown-user animated fadeIn">
+								<div class="dropdown-user-scroll scrollbar-outer">
+									{% if user.is_authenticated%}
+									<li>
+										<a class="dropdown-item" href="#">
+											<i class="fas fa-shield-alt"></i>&nbsp;&nbsp;
+											Modify password
+										</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="{% url 'logout' %}">
+											<i class="fas fa-lock"></i>&nbsp;&nbsp;Logout
+										</a>
+									</li>
+									{% endif %}
+								</div>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<!-- End Navbar -->
+		</div>
+
+		<!-- Sidebar -->
+		<div class="sidebar sidebar-style-2">			
+			<div class="sidebar-wrapper scrollbar scrollbar-inner">
+				<div class="sidebar-content">
+					<div class="user">
+						<div class="avatar-sm float-left mr-2">
+							<img src="{% static 'assets/img/mlane.jpg' %}" alt="..." class="avatar-img rounded-circle">
+						</div>
+						<div class="info">
+							<a aria-expanded="true">
+								<span>
+									{{user.username}}
+								</span>
+								<span>
+								User
+								</span>
+							</a>
+						</div>
+					</div>
+					<ul class="nav nav-primary">
+						<li class="nav-item">
+							<a href="{% url 'base' %}">
+								<i class="fas fa-home"></i>
+								<p class="info_nav">Home</p>
+							</a>
+						</li>
+                        <li class="nav-item">
+							<a href="{% url 'listar_computadoras' %}">
+								<i class="fas fa-tv"></i>
+								<p  class="info_nav">Computadoras</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'listar_departamentos' %}">
+								<i class="fas fa-clipboard-list"></i>
+								<p  class="info_nav" >Departamentos</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- End Sidebar -->
+		{% block contenido %}
+		<div class="main-panel">
+			<div class="content">
+				<div class="page-inner mt--5">
+					<div class="card">
+                        <div class="card-content">
+                            <div class="moving-text">
+								<h1>Gestor Seguridad</h1>
+								<div class="text-animate">
+									<h3>Sistema de Seguridad Informática</h3>
+								</div>
+								<p>
+									This system was made with you in mind, combining the
+									most advanced technology to be able to advance to
+									the next level and create your tasks easier
+									and more efficient.
+								</p>
+								<div>
+									<a href="#" id="boton" style="text-decoration:none">Saber Mas</a>
+								</div>
+								<div class="social-redes">
+									<a href="#"><i class='bx bxl-whatsapp'></i></a>
+									<a href="https://twitter.com/wadeManuel"><i class='bx bxl-twitter'></i></a>
+									<a href="https://github.com/wadeManuel"><i class='bx bxl-github'></i></a>
+									<a href="https://linkedin.com/wadeManuel"><i class='bx bxl-linkedin-square' ></i></a>
+								</div> 
+								
+                            </div>
+                            <div class="image-container">
+                                <img src="{% static 'assets/img/work-7.jpg' %}" alt="Imagen" class="card-image" id="card-image">
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+
+			<!---boton de ir hacia arriba-->
+			<a href="#"  class="boton_arriba" style="text-decoration:none">
+				<i class='fas fa-angle-up' ></i>
+			</a>  
+
+			{% block footer %}
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="copyright ml-auto">
+						2024, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://github.com/wademanuel">WadeManuel</a>
+					</div>				
+				</div>
+			</footer>
+			{% endblock %}
+
+		</div>
+		{% endblock %}
+	</div>
+
+	{% block javascript %}
+	<!--   Core JS Files   -->
+	<script src="{% static 'assets/js/core/jquery.3.2.1.min.js' %}"></script>
+	<script src="{% static 'assets/js/core/popper.min.js' %}"></script>
+	<script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
+
+	<!-- jQuery UI -->
+	<script src="{% static 'assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js' %}"></script>
+	<script src="{% static 'assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js' %}"></script>
+
+	<!-- jQuery Scrollbar -->
+	<script src="{% static 'assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
+
+	
+
+	<!-- Chart JS -->
+	<script src="{% static 'assets/js/plugin/chart.js/chart.min.js' %}"></script>
+
+	<!-- jQuery Sparkline -->
+	<script src="{% static 'assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js' %}"></script>
+
+	<!-- Chart Circle -->
+	<script src="{% static 'assets/js/plugin/chart-circle/circles.min.js' %}"></script>
+
+	<!-- Bootstrap Notify -->
+	<script src="{% static 'assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js' %}"></script>
+
+	<!-- jQuery Vector Maps -->
+	<script src="{% static 'assets/js/plugin/jqvmap/jquery.vmap.min.js' %}"></script>
+	<script src="{% static 'assets/js/plugin/jqvmap/maps/jquery.vmap.world.js' %}"></script>
+
+	<!-- Atlantis JS -->
+	<script src="{% static 'assets/js/atlantis.min.js' %}"></script>
+	<script>
+		// Código JavaScript para la validación de Bootstrap
+		(function () {
+		  'use strict'
+		
+		  // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap
+		  var forms = document.querySelectorAll('.needs-validation')
+		
+		  // Bucle sobre ellos y evitar el envío
+		  Array.prototype.slice.call(forms)
+			.forEach(function (form) {
+			  form.addEventListener('submit', function (event) {
+				if (!form.checkValidity()) {
+				  event.preventDefault()
+				  event.stopPropagation()
+				}
+		
+				form.classList.add('was-validated')
+			  }, false)
+			})
+		})()
+	</script>
+	
+	
+	<script>
+		$(document).ready(function() {
+			$('#basic-datatables').DataTable({
+			});
+
+			$('#multi-filter-select').DataTable( {
+				"pageLength": 5,
+				initComplete: function () {
+					this.api().columns().every( function () {
+						var column = this;
+						var select = $('<select class="form-control"><option value=""></option></select>')
+						.appendTo( $(column.footer()).empty() )
+						.on( 'change', function () {
+							var val = $.fn.dataTable.util.escapeRegex(
+								$(this).val()
+								);
+
+							column
+							.search( val ? '^'+val+'$' : '', true, false )
+							.draw();
+						} );
+
+						column.data().unique().sort().each( function ( d, j ) {
+							select.append( '<option value="'+d+'">'+d+'</option>' )
+						} );
+					} );
+				}
+			});
+
+			// Add Row
+			$('#add-row').DataTable({
+				"pageLength": 5,
+			});
+
+			var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+			$('#addRowButton').click(function() {
+				$('#add-row').dataTable().fnAddData([
+					$("#addName").val(),
+					$("#addPosition").val(),
+					$("#addOffice").val(),
+					action
+					]);
+				$('#addRowModal').modal('hide');
+
+			});
+		});
+	</script>
+	 <!--- scroll riveal-->
+	 <script src="./static/js/scrollreveal.js"></script>
+	 <!--Codigo Script-->
+	<script >
+		/*Boton de ir arriba*/ 
+		function irArriba(pxpantalla){
+		    window.addEventListener('scroll',()=>{
+		        var scroll=document.documentElement.scrollTop;
+			
+		        let bottonirArriba=document.querySelector('.boton_arriba');
+		        if(scroll > 500){
+		            bottonirArriba.style.right = 20 +"px";
+		        }else{
+		            bottonirArriba.style.right = -100 +"px";
+		        }
+			
+		        bottonirArriba.addEventListener('click',()=>{
+		            window.scrollTo({
+		                top:0,
+		                behavior:'smooth'
+		            });
+		        });
+		    });
+		}
+		irArriba(500);
+	</script>
+	<script>
+		/*-----Scroll reveal-------------*/ 
+			ScrollReveal({
+			   reset: true,
+			   distance:'80px',
+			   duration:2000,
+			   delay:200
+		   });
+
+		   ScrollReveal().reveal('.moving-text,.heading,.encabezado,.container-img2 img ', { origin:'top' });
+		   ScrollReveal().reveal('.image-container img,.card-box,.container_servicios,.contact form', { origin:'bottom' });
+		   ScrollReveal().reveal('.moving-text h2,.moving-text p,.contenedor-img img', { origin:'left' });
+		   ScrollReveal().reveal('.moving-text h3,.contenedor-info', { origin:'right' });
+   </script>
+
+	{% endblock %}
+	
+</body>
+</html>

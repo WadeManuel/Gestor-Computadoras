@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% block title %} <title>SI-Editar Computadora</title> {% endblock %}
+</head>
+
+<body>
+    {% block contenido %}
+    <div class="main-panel">
+        <div class="content">
+            <div class="panel-header bg-dark-gradient">
+                <div class="page-inner py-5">
+                    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                        <div>
+                            <h1 class="text-white pb-2 fw-bold">Book detail</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-inner mt--5">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex align-items-center">
+                                <h4 class="card-title">Book detail</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form action="" method="POST" style="min-width:300px" >
+                                        {% csrf_token %}
+                                        {% if form.non_field_errors %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {% for error in form.non_field_errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+                                        {% for field in form %}
+                                        <div class="form-group">
+                                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                            {{ field }}
+                                            {% if field.errors %}
+                                                <div class="alert alert-danger">
+                                                    {% for error in field.errors %}
+                                                        {{ error }}
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                            {% if field.help_text %}
+                                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                        <button class="btn btn-primary">Update</button>
+                                    </form>
+                                <div>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block footer %} {{ block.super }} {% endblock %}
+    </div>
+    {% endblock %}
+    {% block javascript %} {{ block.super }} {% endblock %}
+</body>
+
+</html>
