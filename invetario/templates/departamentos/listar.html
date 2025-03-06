@@ -38,7 +38,7 @@
                             <div class="d-flex align-items-center header-row">
                                 <h4 class="card-title">Listado de Departamentos de la Empresa de Electromedicina</h4>
                                 <div class="btn ml-auto">
-                                    <a href="{% url 'crear_departamento'  %}"  class="btn btn-primary" >Agregar </a>
+                                    <a href="{% url 'crear_departamento'  %}"  class="btn btn-warning" > <i class="fas fa-plus-circle" style="margin-right:5px"></i>Agregar </a>
                                 </div>
                             </div>
                         </div>
@@ -69,13 +69,16 @@
                                             <td>
                                                 <div class="form-button-action">
                                                     <a type="button" href="{% url 'editar_departamento' departamento.id  %}"
-                                                        class="btn btn-link btn-primary btn-lg">
+                                                        class="btn btn-primary btn-sm">
                                                         <i class="fa fa-edit"></i>
+                                                        Editar
                                                     </a>
                                                     <button type="button" data-toggle="modal" title=""
-                                                        class="btn btn-link btn-danger"
-                                                        data-target="#eliminarModal {{ departamento.id }}">
-                                                        <i class="fa fa-times"></i>
+                                                        class="btn btn-danger btn-sm"
+                                                        data-target="#eliminarModal {{ departamento.id }}"
+                                                        style="margin-left:5px">
+                                                        <i class="fa fa-trash"></i>
+                                                        Eliminar
                                                     </button>
                                                     <!-- Modal de Confirmación de Eliminación -->
                                                     <div class="modal fade" id="eliminarModal {{ departamento.id }}"
@@ -98,13 +101,13 @@
                                                                     <strong>{{ departamento.nombre }} </strong>?
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
+                                                                    <button type="button" class="btn btn-secondary "
                                                                         data-dismiss="modal">Cancelar</button>
                                                                     <form
                                                                         action="{% url 'eliminar_departamento' departamento.id %}"
                                                                         method="delete">
                                                                         {% csrf_token %}
-                                                                        <input type="submit" class="btn btn-danger"
+                                                                        <input type="submit" class="btn btn-danger "
                                                                             value="Eliminar" >
                                                                     </form>
                                                                 </div>

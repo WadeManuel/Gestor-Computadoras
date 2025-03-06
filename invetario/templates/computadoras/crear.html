@@ -33,6 +33,11 @@
                         <div class="card-body">
                             <div class="row">
                                     <div  class="col-md-6">
+                                        {% if error %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{error}}
+                                        </div>
+                                        {% endif %}
                                         <form action="" method="POST"  class="needs-validation" novalidate>
                                             {% csrf_token %}
                                             {% if form.non_field_errors %}
@@ -59,7 +64,7 @@
                                             </div>
                                             {% endfor %}
                                             <div class="form-group">
-                                                <button class="btn btn-primary" >
+                                                <button class="btn btn-primary btn-sm" >
                                                     <i class="fa fa-save" style=" margin-right: 5px"></i>
                                                     Guardar
                                                 </button>

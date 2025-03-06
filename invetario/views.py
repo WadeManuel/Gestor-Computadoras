@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
-from .models import Departameto,Computadora,Invetario
-from .forms import DepartamentoForm,ComputadoraForm,InentarioForm
+from .models import Departameto,Computadora,Propiedad
+from .forms import DepartamentoForm,ComputadoraForm,PropiedadForm
 from django.http import HttpResponse
 from django.views import View
 from docx import Document
@@ -161,6 +161,12 @@ def listar_computadoras(request):
 def crear_computadora(request):
     if request.method == 'POST':
         form = ComputadoraForm(request.POST)
+        numero_pc=int(request.POST['numero_pc'])
+        if numero_pc < 0 :
+            return render(request,'computadoras/crear.html',{
+                'form':form,
+                'error':'El numero de pc debe ser mayor que 0 no menor'
+            })
         if form.is_valid():
             form.save()
             messages.success(request,'Componente de la pc guardado con éxito')
@@ -226,6 +232,73 @@ def eliminar_departamento(request,pk):
         departamento.delete()
         messages.success(request,'Departamento eliminado con éxito')
         return redirect('listar_departamentos')
+    
+
+def listar_propiedades(request):
+    propiedades = Propiedad.objects.all()
+    # Obtener el valor de búsqueda de la URL
+    search = request.GET.get('search', '')  # Si no hay valor, usa una cadena vacía
+    # Filtrar las computadoras por departamento si hay un valor de búsqueda
+    if search:
+        propiedades = propiedades.filter(Q(procesador__icontains=search))
+    
+    # Obtener el valor de page_size de la URL, con un valor por defecto de 10
+    page_size = request.GET.get('page_size', '10')
+    # Validar que page_size sea un número y que esté dentro del rango permitido
+    try:
+        page_size = int(page_size)
+        if page_size > 100:
+            page_size = 100  # Máximo 100 componentes por página
+        elif page_size <= 0:
+            page_size = 10 #Mínimo de 1 compoente pc por página
+    except ValueError:
+        page_size = 10  # Si no es un número, usar el valor por defecto
+    paginator = Paginator(propiedades, page_size)  # Mostrar 10 componentes por página
+    page_number = request.GET.get('page')
+    try:
+        page_obj = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+    context = {
+        'page_obj': page_obj,
+        'page_size': str(page_size),  # Pasar page_size como cadena al contexto
+        'search': search,  # Pasar el valor de búsqueda al contexto
+    }
+    return render(request,'propiedades/listar.html',context)
+
+def crear_propiedad(request):
+    form=PropiedadForm(request.POST)
+    computadoras = Computadora.objects.all()
+    if form.is_valid():
+            form.save()
+            messages.success(request,'!Propiedades guardado con éxito')
+            return redirect('listar_propiedades')
+    else:
+        form = PropiedadForm()
+    return render(request,'propiedades/crear.html',{'form':form,'computadoras':computadoras})
+
+def editar_propiedad(request,pk):
+    propiedad=get_object_or_404(Propiedad,pk=pk)
+    form=PropiedadForm(request.POST)
+    if request.method == 'POST':
+        form = PropiedadForm(request.POST,instance=propiedad)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'!Propiedad editada con éxito')
+            return redirect('listar_propiedades')
+        return render(request,'propiedades/editar.html',{'form':form})
+    else:
+        form = PropiedadForm(instance=propiedad)
+    return render(request,'propiedades/editar.html',{'form':form})
+
+def eliminar_propiedad(request,pk):
+    propiedad=get_object_or_404(Propiedad,pk=pk)
+    if propiedad:
+        propiedad.delete()
+        messages.success(request,"!Propiedad eliminada con exitó ")
+        return redirect('listar_propiedades')
     
         
     

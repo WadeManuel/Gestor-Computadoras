@@ -22,6 +22,14 @@ class Computadora(models.Model):
     
 class Meta:
         ordering = [ " numero_pc " ]
+
+class Propiedad(models.Model):
+    procesador=models.CharField(max_length=255,blank=False)
+    memoria_ram=models.CharField(max_length=255,blank=False)
+    disco=models.CharField(max_length=255,blank=False)
+    gpu=models.CharField(max_length=255,blank=True)
+    computadora=models.ForeignKey(Computadora,on_delete=models.CASCADE)
+    
     
      
 

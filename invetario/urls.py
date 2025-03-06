@@ -14,8 +14,17 @@ urlpatterns = [
     path('computadoras/crear/',views.crear_computadora,name='crear_computadora'),
     path('computadoras/editar/<int:pk>/',views.editar_computadora,name='editar_computadora'),
     path('computadoras/eliminar/<int:pk>/',views.eliminar_computadora,name='eliminar_computadora'),
+    #Url para departamentos
     path('departamentos/',views.listar_departamentos,name='listar_departamentos'),
     path('departamentos/crear/',views.crear_departamento,name='crear_departamento'),
     path('departamentos/editar/<int:pk>/',views.editar_departamento,name='editar_departamento'),
-     path('departamentos/eliminar/<int:pk>/',views.eliminar_departamento,name='eliminar_departamento'),
+    path('departamentos/eliminar/<int:pk>/',views.eliminar_departamento,name='eliminar_departamento'),
+    #Url para propiedades
+    path('propiedades/',views.listar_propiedades,name='listar_propiedades'),
+    path('propiedades/crear/',views.crear_propiedad,name='crear_propiedad'),
+    path('propiedades/editar/<int:pk>/',views.editar_propiedad,name='editar_propiedad'),
+    path('propiedades/eliminar/<int:pk>/',views.eliminar_propiedad,name='eliminar_propiedad'),
+    
+    
+    
 ]

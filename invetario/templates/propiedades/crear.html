@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% block title %} <title>Agregar Propiedades</title> {% endblock %}
+</head>
+
+<body>
+    {% block contenido %}
+    <div class="main-panel">
+        <div class="content">
+            <div class="page-inner mt--5">
+                <div class="col-md-12">
+                    {% if messages %}
+                    <div class="alert alert-error" >
+                        <ul class="lista-mensajes">
+                            {% for message in messages %}
+                                <li  {% if message.tags %}{% endif %}>{{message}}</li>
+                            {%endfor%}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </ul>   
+                    </div>
+                    {% endif %}
+                    <div class="card" >
+                        <div class="card-header">
+                            <div class="d-flex align-items-center">
+                                <h4 class="card-title text-center"> Agregar Propiedades</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                    <div  class="col-md-6">
+                                        {% if error %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{error}}
+                                        </div>
+                                        {% endif %}
+                                        <form action="" method="POST"  class="needs-validation" novalidate>
+                                            {% csrf_token %}
+                                            <!-- Campo: Procesador -->
+                                            <div class="form-group">
+                                              <label for="id_procesador">Nombre:</label>
+                                              <input id="id_procesador" type="text" class="form-control" name="procesador" required
+                                               placeholder="Procesador" >
+                                            </div>
+                                            <!-- Campo: Memmoria Ram -->
+                                            <div class="form-group">
+                                                <label for="id_memoria_ram">Memoria Ram:</label>
+                                                <input id="id_memoria_ram" type="text" class="form-control" name="memoria_ram" required
+                                                 placeholder="Memmoria Ram" >
+                                            </div>
+                                            <!-- Campo: Disco -->
+                                            <div class="form-group">
+                                                <label for="id_disco">Memoria Ram:</label>
+                                                <input id="id_disco" type="text" class="form-control" name="disco" required
+                                                 placeholder="Disco" >
+                                            </div>
+
+                                             <!-- Campo: Disco -->
+                                             <div class="form-group">
+                                                <label for="id_gpu">Memoria GPU:</label>
+                                                <input id="id_gpu" type="text" class="form-control" name="gpu" required
+                                                 placeholder="GPU" >
+                                            </div>
+
+
+                                            <!-- Campo: Computadora -->
+                                            <div class="form-group">
+                                              <label for="id_computadora">Computadora:</label>
+                                              <select id="id_computadora" class="form-control" name="computadora" required>
+                                                <option value="" selected disabled>Seleccione una Computadora</option>
+                                                {% for computadora in computadoras %}
+                                                <option value="{{ computadora.id }}">{{ computadora.numero_pc }}</option>
+                                                {% endfor %}
+                                              </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <button class="btn btn-primary " >
+                                                    <i class="fa fa-save" style=" margin-right: 5px"></i>
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block footer %} {{ block.super }} {% endblock %}
+    </div>
+    {% endblock %}
+    {% block javascript %} {{ block.super }} {% endblock %}
+</body>
+
+</html>
