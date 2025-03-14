@@ -37,13 +37,13 @@
                         <div class="card-header">
                             <div class="d-flex align-items-center ">
                                 <h4 class="card-title text-center">Listado Propiedades de la  Computadoras</h4>
-                                <div class="btn ml-auto">
-                                    <a href="{% url 'crear_propiedad'  %}"  class="btn btn-warning "   style="color:#fff" >
-                                        <i class="fas fa-plus-circle"></i>
-                                        Agregar
-                                    </a>
-                                </div>
                             </div>
+                        </div>
+                        <div class="btn ml-auto">
+                            <a href="{% url 'crear_propiedad'  %}"  class="btn btn-success "   style="color:#fff" >
+                                <i class="fas fa-plus-circle"></i>
+                                Agregar
+                            </a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -83,16 +83,6 @@
                                             <th style="width: 10%">Acción</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th><i class="fas fa-microchip"></i></th>
-                                            <th><i class="fas fa-memory"></i></th>
-                                            <th><i class="far fa-hdd"></i></th>
-                                            <th><i class="far fa-credit-card"></i> <i class="fas fa-video"></i></th>
-                                            <th><i class="fas fa-laptop"><i/></th>
-                                            <th style="width: 10%">Acción</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         {% for propiedad in page_obj %}
                                         <tr>
@@ -107,48 +97,13 @@
                                                         class="btn btn-primary btn-sm" >
                                                         <i class="fa fa-edit"></i>Editar
                                                     </a>
-                                                    <button type="button" data-toggle="modal" title=""
+                                                    <a type="button"  href="{% url 'eliminar_propiedad' propiedad.id  %}"  
                                                         class="btn btn-danger btn-sm"
-                                                        data-target="#eliminarModal {{ 3 }}"
-                                                        style="margin-left:5px">
+                                                        style="margin-left:5px;color:#fff"
+                                                        onclick="return confirm('Estas seguro')">
                                                         <i class="fa fa-trash"></i>
                                                         Eliminar
-                                                    </button>
-                                                <!-- Modal de Confirmación de Eliminación -->
-                                                <div class="modal fade" id="eliminarModal {{ 3 }}"
-                                                    tabindex="-1" role="dialog"
-                                                    aria-labelledby="eliminarModalLabel {{ 3 }}"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title"
-                                                                    id="eliminarModalLabel {{ 3 }}">
-                                                                    Confirmar Eliminación</h5>
-                                                                <button type="button" class="close"
-                                                                    data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                ¿Estás seguro que deseas eliminar estas propiedades
-                                                                <strong>{{ propiedad.id }} </strong>?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary "
-                                                                    data-dismiss="modal">Cancelar</button>
-                                                                <form
-                                                                    action="{% url 'eliminar_propiedad' propiedad.id %}"
-                                                                    method="delete">
-                                                                    {% csrf_token %}
-                                                                    <input type="submit" class="btn btn-danger "
-                                                                        value="Eliminar" >
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                    
+                                                    </a>    
                                                 </div>
                                             </td>
                                         </tr>

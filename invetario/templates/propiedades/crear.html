@@ -73,7 +73,7 @@
                                               <select id="id_computadora" class="form-control" name="computadora" required>
                                                 <option value="" selected disabled>Seleccione una Computadora</option>
                                                 {% for computadora in computadoras %}
-                                                <option value="{{ computadora.id }}">{{ computadora.numero_pc }}</option>
+                                                <option value="{{ computadora.id }}">PC {{ computadora.numero_pc }}</option>
                                                 {% endfor %}
                                               </select>
                                             </div>

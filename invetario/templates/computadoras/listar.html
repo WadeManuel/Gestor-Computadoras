@@ -14,7 +14,7 @@
                 <div class="page-inner py-5">
                     <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                         <div>
-                            <h1 class="text-white pb-2 fw-bold">Gestor de Información de la seguridad de la empresa de electromedicina</h1>
+                            <h1 class="text-white pb-2 fw-bold">Componentes de las Computadoras de la empresa</h1>
                         </div>
                     </div>
                 </div>
@@ -34,20 +34,32 @@
                     </div>
                     {% endif %}
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header"
+                        style="background-color:#6c757d;;;
+                        border-bottom: none !important;
+                        border-radius:9px 9px 0px 0px">
                             <div class="d-flex align-items-center ">
-                                <h4 class="card-title">Listado Componentes de la  Computadoras</h4>
-                                <div class="btn ml-auto">
-                                    <a href="{% url 'lista_computadoras_work'  %}"  
-                                    class="btn btn-info " style="color:#fff" >
-                                        <i class="fa fa-plus" style="margin-right:5px"></i>Work
-                                    </a>
-                                    <a href="{% url 'lista_pdf_computadoras'  %}"  class="btn btn-danger " style="color:#fff" >  <i class="fa fa-print"></i></a>
-                                    <a href="{% url 'crear_computadora'  %}"  class="btn btn-warning "   style="color:#fff" >
-                                        <i class="fas fa-plus-circle"></i>
-                                        Agregar
-                                    </a>
-                                </div>
+                                <h4 class="card-title"
+                                    style="font-size:16px;
+                                    color:#fff;"><i class="fas fa-list-ul"  style="margin-right:5px"></i>
+                                    Registros de Componentes de la  Computadoras
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="btn ml-auto d-flex  justify-content-between" style="background-color:#f8f9fa;width:100%;border-radius:none !important">
+                            <div>
+                                <a href="{% url 'lista_computadoras_work'  %}"  
+                                class="btn btn-info " style="color:#fff" >
+                                    <i class="fas fa-archive" style="margin-right:5px"></i>Word
+                                </a>
+                                <a href="{% url 'lista_pdf_computadoras'  %}"  class="btn btn-danger " style="color:#fff" ><i class="fa fa-print" style="margin-right:5px"></i>Print</a>
+                               
+                            </div>
+                            <div>
+                                <a href="{% url 'crear_computadora'  %}"  class="btn btn-success "   style="color:#fff;background:#28a745 !important" >
+                                    <i class="fas fa-plus-circle"></i>
+                                    Agregar
+                                </a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -56,7 +68,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-md-4">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" name="search" placeholder="Buscar por departamento" value="{{ search }}">
+                                                <input type="text" class="form-control" name="search" placeholder="Buscar por departamento o marca" value="{{ search }}">
                                                 <button class="btn btn-outline-secondary " type="submit" ><i class="fa fa-search"></i></button>
                                             </div>
                                         </div>
@@ -89,23 +101,12 @@
                                             <th style="width: 10%">Acción</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Componente</i></th>
-                                            <th># Inventario</th>
-                                            <th>Marca</th>
-                                            <th>Estado</th>
-                                            <th># <i class="fa fa-desktop"></i></th>
-                                            <th>Depart <i class="fas fa-building"></i></th>
-                                            <th style="width: 10%">Acción</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         {% for computadora in page_obj %}
                                         <tr>
                                             <td>{{ computadora.componente_pc }}</td>
                                             <td>{{ computadora.num_inventario }}</td>
-                                            <td>{{ computadora.marca }}</td>
+                                            <td style="color:#48abf7 !important">{{ computadora.marca }}</td>
                                             <td>{{ computadora.estado }}</td>
                                             <td>{{ computadora.numero_pc }}</td>
                                             <td>{{ computadora.departamento }}</td>

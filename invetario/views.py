@@ -128,7 +128,10 @@ def listar_computadoras(request):
     search = request.GET.get('search', '')  # Si no hay valor, usa una cadena vacía
     # Filtrar las computadoras por departamento si hay un valor de búsqueda
     if search:
-        computadoras = computadoras.filter(Q(departamento__nombre__icontains=search))
+          computadoras = computadoras.filter(
+            Q(departamento__nombre__icontains=search) | 
+            Q(marca__icontains=search)
+        )
     
     # Obtener el valor de page_size de la URL, con un valor por defecto de 10
     page_size = request.GET.get('page_size', '10')
@@ -196,8 +199,6 @@ def eliminar_computadora(request,pk):
         return redirect('listar_computadoras')
     
         
-
-
 def listar_departamentos(request):
     departamentos = Departameto.objects.order_by("nombre")
     return render(request,'departamentos/listar.html',{'departamentos':departamentos})

@@ -14,7 +14,7 @@
                 <div class="page-inner py-5">
                     <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                         <div>
-                            <h1 class="text-white pb-2 fw-bold">Lista de Departamentos</h1>
+                            <h1 class="text-white pb-2 fw-bold">Departamentos empresa</h1>
                         </div>
                     </div>
                 </div>
@@ -33,34 +33,34 @@
                         </ul>   
                     </div>
                     {% endif %}
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="d-flex align-items-center header-row">
-                                <h4 class="card-title">Listado de Departamentos de la Empresa de Electromedicina</h4>
-                                <div class="btn ml-auto">
-                                    <a href="{% url 'crear_departamento'  %}"  class="btn btn-warning" > <i class="fas fa-plus-circle" style="margin-right:5px"></i>Agregar </a>
-                                </div>
+                    <div class="card" >
+                        <div class="card-header"  
+                            style="background-color:#6c757d;;;
+                            border-bottom: none !important;
+                            border-radius:9px 9px 0px 0px">
+                            <div class="d-flex align-items-center header-row" >
+                                <h4 class="card-title"
+                                    style="font-size:16px;
+                                    color:#fff;">
+                                    Registro de Departamentos de la Empresa de Electromedicina
+                                </h4>
                             </div>
+                        </div>
+                        <div class="btn ml-auto">
+                            <a href="{% url 'crear_departamento'  %}"  class="btn btn-success " > <i class="fas fa-plus-circle" style="margin-right:5px"></i>Agregar </a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="add-row" class="display table table-striped table-hover">
+                                <table id="add-row" class="display table table-striped "
+                                >
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Cantidad de Pc</th>
-                                            
                                             <th style="width: 10%">Acción</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Cantidad de Pc</th>
-                                           
-                                            <th style="width: 10%">Acción</th>
-                                        </tr>
-                                    </tfoot>
+        
                                     <tbody>
                                         {% for departamento in departamentos %}
                                         <tr>
