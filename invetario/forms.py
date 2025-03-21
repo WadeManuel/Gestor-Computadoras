@@ -1,5 +1,5 @@
 from django import forms
-from .models import Departameto,Computadora,Invetario,Propiedad
+from .models import Departameto,Computadora,Propiedad,LectorCD_DVD,MemoriaRam,Discos
 
 #Formulario de Departamento Empresa
 class DepartamentoForm(forms.ModelForm):
@@ -24,10 +24,40 @@ class ComputadoraForm(forms.ModelForm):
             'departamento':forms.Select(attrs={'class':'form-control'})
         }
 
+class MemoriaRamForm(forms.ModelForm):
+    class Meta:
+        model = MemoriaRam
+        fields=['clasificacion','capacidad','marca','velocidad']
+        widgets = {
+            'clasificacion':forms.TextInput(attrs={'class':'form-control'}),
+            'capacidad':forms.TextInput(attrs={'class':'form-control'}),
+            'marca':forms.TextInput(attrs={'class':'form-control'}),
+            'velocidad':forms.TextInput(attrs={'class':'form-control'})
+        }
+
+class DiscoForm(forms.ModelForm):
+    class Meta:
+        model = Discos
+        fields=['clasificacion','capacidad','marca','serie']
+        widgets = {
+            'clasificacion':forms.TextInput(attrs={'class':'form-control'}),
+            'capacidad':forms.TextInput(attrs={'class':'form-control'}),
+            'marca':forms.TextInput(attrs={'class':'form-control'}),
+            'serie':forms.TextInput(attrs={'class':'form-control'})
+        }
+class LectorForm(forms.ModelForm):
+    class Meta:
+        model=LectorCD_DVD
+        fields=['clasificacion','marca']
+        widgets = {
+            'clasificacion':forms.TextInput(attrs={'class':'form-control'}),
+            'marca':forms.TextInput(attrs={'class':'form-control'})
+        }
+
 class PropiedadForm(forms.ModelForm):
     class Meta:
         model=Propiedad
-        fields=['procesador','memoria_ram','disco','gpu','computadora']
+        fields=['procesador','lista_memorias_ram','lista_discos_duros','gpu','computadora']
         widgets = {
             'procesador':forms.TextInput(attrs={'class':'form-control'}),
             'memoria_ram':forms.TextInput(attrs={'class':'form-control'}),
@@ -35,8 +65,3 @@ class PropiedadForm(forms.ModelForm):
             'gpu':forms.TextInput(attrs={'class':'form-control'}),
             'computadora':forms.Select(attrs={'class':'form-control'})
         }
-class InentarioForm(forms.ModelForm):
-    class Meta:
-        model = Invetario
-        fields = ['departamento','pc']
-        exclude = ['fecha']

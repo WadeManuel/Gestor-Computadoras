@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
-from .models import Departameto,Computadora,Propiedad
-from .forms import DepartamentoForm,ComputadoraForm,PropiedadForm
+from .models import Departameto,Computadora,Propiedad,LectorCD_DVD,MemoriaRam,Discos
+from .forms import DepartamentoForm,ComputadoraForm,PropiedadForm,LectorForm,DiscoForm,MemoriaRamForm
 from django.http import HttpResponse
 from django.views import View
 from docx import Document
@@ -11,8 +11,8 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from io import BytesIO  # Para manejar el PDF en memoria
-from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.db.models import Q
+from .paginacion import paginacion,paga_Size
 
 
 class ComputadorasPDFView(View):
@@ -132,26 +132,9 @@ def listar_computadoras(request):
             Q(departamento__nombre__icontains=search) | 
             Q(marca__icontains=search)
         )
-    
-    # Obtener el valor de page_size de la URL, con un valor por defecto de 10
-    page_size = request.GET.get('page_size', '10')
-    # Validar que page_size sea un número y que esté dentro del rango permitido
-    try:
-        page_size = int(page_size)
-        if page_size > 100:
-            page_size = 100  # Máximo 100 componentes por página
-        elif page_size <= 0:
-            page_size = 10 #Mínimo de 1 compoente pc por página
-    except ValueError:
-        page_size = 10  # Si no es un número, usar el valor por defecto
-    paginator = Paginator(computadoras, page_size)  # Mostrar 10 componentes por página
-    page_number = request.GET.get('page')
-    try:
-        page_obj = paginator.get_page(page_number)
-    except PageNotAnInteger:
-        page_obj = paginator.page(1)
-    except EmptyPage:
-        page_obj = paginator.page(paginator.num_pages)
+    #Esto es para paginar 
+    page_size = paga_Size(request)
+    page_obj=paginacion(request,computadoras)
     context = {
         'page_obj': page_obj,
         'page_size': str(page_size),  # Pasar page_size como cadena al contexto
@@ -235,6 +218,79 @@ def eliminar_departamento(request,pk):
         return redirect('listar_departamentos')
     
 
+#listar memorias ram
+def listar_memorias_ram(request):
+    lista_memorias_ram=MemoriaRam.objects.all()
+    search=request.GET.get('search','')
+    if search:
+        lista_memorias_ram=lista_memorias_ram.filter(Q(marca__icontains=search))
+    return render(request,'memorias/listar.html',{'lista_memorias_ram':lista_memorias_ram})
+#crear memoria ram
+
+def crear_memoria_ram(request):
+    if request.method=='POST':
+        form=MemoriaRamForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'!Memoria Ram guardada con éxito')
+            return redirect('listar_memorias_ram')
+        return render(request,'memorias/crear.html',{'form':form})
+    else:
+        form = MemoriaRamForm()
+    return render(request,'memorias/crear.html',{'form':form})
+
+def editar_memoria_ram(request,pk):
+    memoria_ram = get_object_or_404(MemoriaRam,pk=pk)
+    if request.method == 'POST':
+        form = MemoriaRamForm(request.POST,instance=memoria_ram)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'!Memoria Ram editad con éxito')
+            return redirect('listar_memorias_ram')
+        return render(request,'memorias/editar.html',{'form':form})
+    else:
+        form = MemoriaRamForm(instance=memoria_ram)
+    return render(request,'memorias/editar.html',{'form':form})
+
+def eliminar_memoria_ram(request,pk):
+    memoria_ram = get_object_or_404(MemoriaRam,pk=pk)
+    if memoria_ram:
+        memoria_ram.delete()
+        return redirect('listar_memorias_ram')
+
+#función listado de discos duros
+def listar_discos_duros(request):
+    lista_discos_duros=Discos.objects.all()
+    return render(request,'discos/listar.html',{'lista_discos_duros':lista_discos_duros})
+
+#crear disco duro
+def crear_disco_duro(request):
+    if request.method=='POST':
+        form = DiscoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'!Disco duro guardado con éxito')
+            return redirect('listar_discos_duros')
+        return render(request,'discos/crear.html',{'form':form})
+    else:
+        form=DiscoForm()
+    return render(request,'discos/crear.html',{'form':form})
+
+def editar_disco_duro(request,pk):
+    disco_duro=get_object_or_404(Discos,pk=pk)
+    if request.method=="POST":
+        form=DiscoForm(request.POST,instance=disco_duro)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'!Disco duro guardado con éxito')
+            return redirect('listar_discos_duros')
+        return render(request,'discos/crear.html',{'form':form})
+    else:
+        form=DiscoForm(instance=disco_duro)
+    return render(request,'discos/crear.html',{'form':form})
+            
+
+#listar Propiedades
 def listar_propiedades(request):
     propiedades = Propiedad.objects.all()
     # Obtener el valor de búsqueda de la URL
@@ -242,26 +298,9 @@ def listar_propiedades(request):
     # Filtrar las computadoras por departamento si hay un valor de búsqueda
     if search:
         propiedades = propiedades.filter(Q(procesador__icontains=search))
-    
-    # Obtener el valor de page_size de la URL, con un valor por defecto de 10
-    page_size = request.GET.get('page_size', '10')
-    # Validar que page_size sea un número y que esté dentro del rango permitido
-    try:
-        page_size = int(page_size)
-        if page_size > 100:
-            page_size = 100  # Máximo 100 componentes por página
-        elif page_size <= 0:
-            page_size = 10 #Mínimo de 1 compoente pc por página
-    except ValueError:
-        page_size = 10  # Si no es un número, usar el valor por defecto
-    paginator = Paginator(propiedades, page_size)  # Mostrar 10 componentes por página
-    page_number = request.GET.get('page')
-    try:
-        page_obj = paginator.get_page(page_number)
-    except PageNotAnInteger:
-        page_obj = paginator.page(1)
-    except EmptyPage:
-        page_obj = paginator.page(paginator.num_pages)
+    #Esto es para paginar 
+    page_size = paga_Size(request)
+    page_obj=paginacion(request,propiedades)
     context = {
         'page_obj': page_obj,
         'page_size': str(page_size),  # Pasar page_size como cadena al contexto
@@ -293,6 +332,12 @@ def editar_propiedad(request,pk):
     else:
         form = PropiedadForm(instance=propiedad)
     return render(request,'propiedades/editar.html',{'form':form})
+
+def ver_propiedades(request,pk):
+    propiedad=get_object_or_404(Propiedad,pk=pk)
+    if propiedad:
+        return render(request,'propiedades/ver.html',{'propiedad':propiedad})
+    
 
 def eliminar_propiedad(request,pk):
     propiedad=get_object_or_404(Propiedad,pk=pk)

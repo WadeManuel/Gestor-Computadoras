@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Departameto,Computadora,Invetario
+from .models import Departameto,Computadora
 
 class DepartamentoAdmin(admin.ModelAdmin):
     list_display = ('nombre','cantidad_pc')
@@ -12,10 +12,8 @@ class ComputadoraAdmin(admin.ModelAdmin):
     search_fields = ('num_invetario',)
 
 
-class InventarioAdmin(admin.ModelAdmin):
-    list_display = ('departamento','pc','fecha')
-    search_fields = ('departamento',)
+
 
 admin.site.register(Departameto,DepartamentoAdmin)
 admin.site.register(Computadora,ComputadoraAdmin)
-admin.site.register(Invetario,InventarioAdmin)
+

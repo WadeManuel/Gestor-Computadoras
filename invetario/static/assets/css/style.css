@@ -29,6 +29,7 @@ section{
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     margin-top:50px ;
+    border:1px solid #007bff;
 }
 
 @media (max-width:900px){
@@ -279,9 +280,9 @@ background:#fff;
 
 /*Estilos para mi tabla donde voy a listar datos*/
 table {
-border-collapse: separate;
-text-indent: initial;
-border-spacing:0.1px;
+    border-collapse: separate;
+    text-indent: initial;
+    border-spacing:0.1px;
 }
 
 thead,tfoot{
@@ -298,9 +299,9 @@ table td,th{
     height:50px !important;
     border-color: 2px #ebedf2;
     background-color: #f9fbfd;
-    color:000;
+    color: #111 !important;
     font-size:13px !important;
-    box-shadow: 10px 0px 20px #ebedf2 !important;
+    box-shadow: 10px 0px 30px #ebedf2 !important;
     text-align:center;
     color:var(--bs-emphasis-color) !important;
 }
@@ -321,6 +322,53 @@ table td,th{
         padding: 0rem;
     }
 }
+.theme-list {
+    position: relative;
+    padding-left: 30px;
+    list-style: none;
+    z-index: 10;
+}
+.theme-list li {
+    display: block;
+    margin: 5px 0;
+}
+.theme-list::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 9px;
+    margin: auto;
+    width: 1px;
+    height: 85%;
+    background-color: #cacdd6;
+    z-index: -1;
+}
 
+.theme-list li::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    margin: 6px 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #888;
+}
+.theme-list li::before {
+    border-color: #EF3724;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+    unicode-bidi: isolate;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+.theme-red .fg-theme {
+    color: #EF3724 !important;
 
+}
 

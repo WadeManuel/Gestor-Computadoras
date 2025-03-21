@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% block title %} <title>SIGFE-Listado de Productos</title> {% endblock %}
+</head>
+<body>
+    {% block contenido %}
+    <div class="main-panel">
+        <div class="content">
+            <div class="panel-header bg-primary-gradient">
+                <div class="page-inner py-5">
+                    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                        <div>
+                            <h1 class="text-white pb-2 fw-bold">SIGFE - Sistema Informático para 
+                                la Gestión Seguridad Informática
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-inner mt--5">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex align-items-center">
+                                <h4 class="card-title"><i class="fas fa-desktop mr-2"></i>Propiedades </h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex-column">
+                                <div class="pl-4" style="width:50%">
+                                    <h5 class="fg-theme mb-3" style="color: #EF3724 !important;font-size: 1.25rem;">Especificación del Dispositivo</h5>
+                                    <ul class="theme-list">
+                                        <li>
+                                            <b>Procesador:</b>
+                                            {{ propiedad.procesador }}
+                                        </li>
+                                        <li>
+                                            <b>Ram Instalada:</b>
+                                            {{ propiedad.memoria_ram }}
+                                        </li>
+                                        <li>
+                                            <b>Disco Instaladao:</b>
+                                            {{ propiedad.disco }} 
+                                        </li>
+                                        <li>
+                                            <b>GPU:</b>
+                                            <span style="color:#000">{{ propiedad.gpu }}</span>
+                                        </li>
+                                        <li>
+                                            <b>Computadora:</b>
+                                            {{ propiedad.computadora.numero_pc }}
+                                        </li>
+                                    </ul>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block footer %} {{ block.super }} {% endblock %}
+    </div>    
+    {% endblock %}
+    {% block javascript %} {{ block.super }} {% endblock %}
+</body>
+
+</html>
