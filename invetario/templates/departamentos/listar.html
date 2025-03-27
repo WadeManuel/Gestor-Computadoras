@@ -10,55 +10,39 @@
     {% block contenido %}
     <div class="main-panel">
         <div class="content">
-            <div class="panel-header "  style="background-color:#1d4e82" >
-                <div class="page-inner py-5">
-                    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-                        <div>
-                            <h1 class="text-white pb-2 fw-bold">Departamentos empresa</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="page-inner mt--5">
                 <div class="col-md-12">
-                    {% if messages %}
-                    <div class="alert alert-success" id="alert-success">
-                        <ul class="lista-mensajes">
-                            {% for message in messages %}
-                                <li  {% if message.tags %}  {% endif %}>{{message}}</li>
-                            {%endfor%}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </ul>   
-                    </div>
-                    {% endif %}
-                    <div class="card" >
-                        <div class="card-header"  
-                            style="background-color:#343a40;
-                            border-bottom: none !important;
-                            border-radius:9px 9px 0px 0px">
-                            <div class="d-flex align-items-center header-row" >
-                                <h4 class="card-title"
-                                    style="font-size:16px;
-                                    color:#fff;">
-                                    <i class="fas fa-list-ul"  style="margin-right:5px"></i>
-                                     Registro de Departamentos de la Empresa de Electromedicina
-                                </h4>
+                    {% load static %}
+                    <div class="contenedor-tabla" style="background-image: url({% static 'assets/img/back-table.png' %});">
+                        <div class="panel panel-primary encabezado-tabla" >
+                            <div class="panel-heading">
+                                <i class="fa fa-database" style="color:#fff !important"></i><strong style="color:#fff"> REGISTROS DE DEPARTAMENTOS</strong>
                             </div>
                         </div>
                         <div class="btn ml-auto">
-                            <a href="{% url 'crear_departamento'  %}"  class="btn btn-success " > <i class="fas fa-plus-circle" style="margin-right:5px"></i>Agregar </a>
+                            <a href="{% url 'crear_departamento'  %}"  class="btn btn-primary mb-3" > <i class="fas fa-plus" style="margin-right:5px"></i>Añadir departamento</a>
                         </div>
+                        {% if messages %}
+                            <div class="alert alert-success" id="alert-success" >
+                                <ul class="lista-mensajes">
+                                    {% for message in messages %}
+                                        <li  {% if message.tags %}  {% endif %}>{{message}}</li>
+                                    {%endfor%}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </ul>   
+                            </div>
+                        {% endif %}
                         <div class="card-body">
-                            <div class="table-responsive">
+                            <div class="table-responsive ">
                                 <table id="add-row" class="display table table-striped "
                                 >
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Cantidad de Pc</th>
-                                            <th style="width: 10%">Acción</th>
+                                            <th class="text-center">OPCIONES</th>
                                         </tr>
                                     </thead>
         
@@ -72,14 +56,12 @@
                                                     <a type="button" href="{% url 'editar_departamento' departamento.id  %}"
                                                         class="btn btn-primary btn-sm">
                                                         <i class="fa fa-edit"></i>
-                                                        Editar
                                                     </a>
                                                     <button type="button" data-toggle="modal" title=""
                                                         class="btn btn-danger btn-sm"
                                                         data-target="#eliminarModal {{ departamento.id }}"
                                                         style="margin-left:5px">
                                                         <i class="fa fa-trash"></i>
-                                                        Eliminar
                                                     </button>
                                                     <!-- Modal de Confirmación de Eliminación -->
                                                     <div class="modal fade" id="eliminarModal {{ departamento.id }}"

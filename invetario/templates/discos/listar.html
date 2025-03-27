@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    {% block title %} <title>SIGFE-Listado de Computadoras</title> {% endblock %}
+    {% block title %} <title>SIGFE-Listado de Discos Duros</title> {% endblock %}
 </head>
 
 <body>
@@ -24,42 +24,31 @@
                         </ul>   
                     </div>
                     {% endif %}
-                    {% load static %}    
-                    <div class="contenedor-tabla"  style="background-image: url({% static 'assets/img/back-table.png' %});">
+                    {% load static %}
+                    <div class="contenedor-tabla" style="background-image: url({% static 'assets/img/back-table.png' %});">
                         <div class="panel panel-primary encabezado-tabla" >
                             <div class="panel-heading">
-                                <i class="fa fa-database" style="color:#fff !important"></i><strong style="color:#fff"> REGISTROS DE COMPONENTE DE COMPUTADORA</strong>
+                                <i class="fa fa-database" style="color:#fff !important"></i><strong style="color:#fff"> REGISTROS DE DISCOS</strong>
                             </div>
                         </div>
-                        <div class="btn ml-auto d-flex  justify-content-between" style="width:100%;border-radius:none !important">
-                            <div>
-                                <a href="{% url 'lista_computadoras_work'  %}"  
-                                class="btn btn-info " style="color:#fff" >
-                                    <i class="fas fa-archive " style="margin-right:5px"></i>Word
-                                </a>
-                                <a href="{% url 'lista_pdf_computadoras'  %}"  class="btn btn-danger " style="color:#fff" ><i class="fa fa-print" style="margin-right:5px"></i>Print</a>
-                               
-                            </div>
-                            <div>
-                                <a href="{% url 'crear_computadora'  %}"  class="btn btn-primary "   style="color:#fff" >
-                                    <i class="fas fa-plus"></i>
-                                    Añadir Componente 
-                                </a>
-                            </div>
+                        <div class="btn ml-auto">
+                            <a href="{% url 'crear_disco_duro'  %}"  class="btn btn-primary "   style="color:#fff" >
+                                <i class="fas fa-plus"></i>
+                                Agregar
+                            </a>
                         </div>
                         <div class="card-body">
-                        
-                            <div class="table-responsive ">
+                            <div class="table-responsive">
                                 <form method="GET" action="" class="mb-3">
                                     <div class="row align-items-center">
                                         <div class="col-md-4">
                                             <div class="input-group">
-                                                <input type="text" class="form-control input-busqueda"  name="search" placeholder="Buscar " value="{{ search }}">
+                                                <input type="text" class="form-control input-busqueda" name="search" placeholder="Buscar marca" value="{{ search }}">
                                                 <button class="btn btn-outline-secondary " type="submit" ><i class="fa fa-search"></i></button>
                                             </div>
                                         </div>
                                         <div class="col-md-auto">
-                                            <label for="page_size" class="col-form-label">Componentes por página:</label>
+                                            <label for="page_size" class="col-form-label ">Propiedades por página:</label>
                                         </div>
                                         <div class="col-auto">
                                             <select name="page_size" id="page_size" class="form-select">
@@ -78,68 +67,65 @@
                                 <table id="add-row" class="display table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Componente</th>
-                                            <th># Inventario</th>
+                                            <th>Clasificación</th>
+                                            <th>Capacidad</th>
                                             <th>Marca</th>
-                                            <th>Estado</th>
-                                            <th># <i class="fa fa-desktop"></i></th>
-                                            <th>Depart <i class="fas fa-building"></i></th>
-                                            <th style="width: 10%">Acción</th>
+                                            <th>Número de Serie</th>
+                                            <th style="width: 10%">OPCIONES</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for computadora in page_obj %}
+                                        {% for disco in lista_discos_duros %}
                                         <tr>
-                                            <td>{{ computadora.componente_pc }}</td>
-                                            <td>{{ computadora.num_inventario }}</td>
-                                            <td style="color:#31ce36 !important">{{ computadora.marca }}</td>
-                                            <td>{{ computadora.estado }}</td>
-                                            <td>{{ computadora.numero_pc }}</td>
-                                            <td>{{ computadora.departamento }}</td>
+                                            <td>{{ disco.clasificacion }}</td>
+                                            <td>{{ disco.capacidad}} (GB)</td>
+                                            <td>{{ disco.marca }}</td>
+                                            <td>{{ disco.serie }}</td>
                                             <td>
                                                 <div class="form-button-action">
-                                                    <a type="button" href="{% url 'editar_computadora' computadora.id  %}"
-                                                    class="btn btn-primary btn-sm" >
+                                                    <a type="button" href="{% url 'editar_disco_duro' disco.id  %}"
+                                                        class="btn btn-primary btn-sm" >
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                     <button type="button" data-toggle="modal" title=""
-                                                         class="btn btn-danger btn-sm"
-                                                        data-target="#eliminarModal {{ computadora.id }}" style="margin-left:5px">
-                                                        <i class="fa fa-trash"></i> 
+                                                        class="btn btn-danger btn-sm"
+                                                        data-target="#eliminarModal {{disco.id }}" style="margin-left:5px">
+                                                        <i class="fa fa-trash"></i>
                                                     </button>
-                                                    <!-- Modal de Confirmación de Eliminación -->
-                                                    <div class="modal fade" id="eliminarModal {{ computadora.id }}"
-                                                        tabindex="-1" role="dialog"
-                                                        aria-labelledby="eliminarModalLabel {{ computadora.id }}"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title"
-                                                                        id="eliminarModalLabel {{ computadora.id }}">
-                                                                        Confirmar Eliminación</h5>
-                                                                    <button type="button" class="close"
-                                                                        data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    ¿Estás seguro que deseas eliminar esta computadora
-                                                                    <strong>{{ computadora.numero_pc }} </strong>?
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-dismiss="modal">Cancelar</button>
-                                                                    <form action="{% url 'eliminar_computadora' computadora.id  %}"
-                                                                        method="delete">
-                                                                        {% csrf_token %}
-                                                                        <input type="submit" class="btn btn-danger"
-                                                                            value="Eliminar" >
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                               <!-- Modal de Confirmación de Eliminación -->
+                                               <div class="modal fade" id="eliminarModal {{ disco.id }}"
+                                                   tabindex="-1" role="dialog"
+                                                   aria-labelledby="eliminarModalLabel {{ disco.id }}"
+                                                   aria-hidden="true">
+                                                   <div class="modal-dialog" role="document">
+                                                       <div class="modal-content">
+                                                           <div class="modal-header">
+                                                               <h5 class="modal-title"
+                                                                   id="eliminarModalLabel {{ disco.id }}">
+                                                                   Confirmar Eliminación</h5>
+                                                               <button type="button" class="close"
+                                                                   data-dismiss="modal" aria-label="Close">
+                                                                   <span aria-hidden="true">&times;</span>
+                                                               </button>
+                                                           </div>
+                                                           <div class="modal-body">
+                                                               ¿Estás seguro que deseas eliminar esta memoria ram
+                                                               <strong>{{ disco.clasificacion }} </strong>?
+                                                           </div>
+                                                           <div class="modal-footer">
+                                                               <button type="button" class="btn btn-secondary"
+                                                                   data-dismiss="modal">Cancelar</button>
+                                                               <form action="{% url 'eliminar_disco_duro' disco.id  %}"
+                                                                   method="delete">
+                                                                   {% csrf_token %}
+                                                                   <input type="submit" class="btn btn-danger"
+                                                                       value="Eliminar" >
+                                                               </form>
+                                                           </div>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
                                                 </div>
                                             </td>
                                         </tr>

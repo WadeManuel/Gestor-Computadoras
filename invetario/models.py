@@ -20,6 +20,8 @@ class Computadora(models.Model):
     numero_pc = models.IntegerField(null=False,blank=False)
     departamento = models.ForeignKey(Departameto,on_delete=models.CASCADE)
     
+    def __str__(self):
+         return f"{self.numero_pc}"
 class Meta:
         ordering = [ " numero_pc " ]
 
@@ -28,17 +30,23 @@ class MemoriaRam(models.Model):
     capacidad=models.IntegerField(null=False,blank=False)
     marca = models.CharField(max_length=155,blank=False)
     velocidad=models.IntegerField(null=False,blank=False)
-
+    
+    def __str__(self):
+        return f"{self.clasificacion}-{self.capacidad}Mb-{self.marca}-{self.velocidad}Mhz"
+     
 class Discos(models.Model):
     clasificacion=models.CharField(max_length=255,blank=False)
     capacidad=models.IntegerField(null=False,blank=False)
     marca = models.CharField(max_length=155,blank=False)
     serie=models.CharField(max_length=255,blank=False,unique=True)
+    def __str__(self):
+        return f"{self.marca}-{self.capacidad}GB"
 
 class LectorCD_DVD(models.Model):
     clasificacion=models.CharField(max_length=255,blank=False)
     marca = models.CharField(max_length=155,blank=False)
-
+    def __str__(self):
+        return f"{self.clasificacion}-{self.marca}"
 class Propiedad(models.Model):
     procesador=models.CharField(max_length=255,blank=False)
     lista_memorias_ram=models.ManyToManyField(MemoriaRam)

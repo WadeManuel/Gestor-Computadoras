@@ -20,6 +20,16 @@ urlpatterns = [
     path('memorias/crear/',views.crear_memoria_ram,name='crear_memoria_ram'),
     path('memorias/editar/<int:pk>/',views.editar_memoria_ram,name='editar_memoria_ram'),
     path('memorias/eliminar/<int:pk>/',views.eliminar_memoria_ram,name='eliminar_memoria_ram'),
+    #Url para Listas Discos
+    path('discos/',views.listar_discos_duros,name='listar_discos_duros'),
+    path('discos/crear/',views.crear_disco_duro,name='crear_disco_duro'),
+    path('discos/editar/<int:pk>/',views.editar_disco_duro,name='editar_disco_duro'),
+    path('discos/eliminar/<int:pk>/',views.eliminar_disco_duro,name='eliminar_disco_duro'),
+     #Url para Listas Lectores 
+    path('lectores/',views.listar_lectores,name='listar_lectores'),
+    path('lectores/crear/',views.crear_lector,name='crear_lector'),
+    path('lectores/editar/<int:pk>/',views.editar_lector,name='editar_lector'),
+    path('lectores/eliminar/<int:pk>/',views.eliminar_lector,name='eliminar_lector'),
     #Url para propiedades
     path('propiedades/',views.listar_propiedades,name='listar_propiedades'),
     path('propiedades/crear/',views.crear_propiedad,name='crear_propiedad'),

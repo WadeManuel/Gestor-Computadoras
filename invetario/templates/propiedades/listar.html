@@ -10,15 +10,6 @@
     {% block contenido %}
     <div class="main-panel">
         <div class="content">
-            <div class="panel-header "  style="background-color:#1d4e82">
-                <div class="page-inner py-5">
-                    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-                        <div>
-                            <h1 class="text-white pb-2 fw-bold">Gestor de Información de la seguridad de la empresa de electromedicina</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="page-inner mt--5">
                 <div class="col-md-12">
                     {% if messages %}
@@ -33,23 +24,17 @@
                         </ul>   
                     </div>
                     {% endif %}
-                    <div class="card">
-                        <div class="card-header"
-                        style="background-color:#343a40;
-                        border-bottom: none !important;
-                        border-radius:9px 9px 0px 0px">
-                            <div class="d-flex align-items-center ">
-                                <h4 class="card-title"
-                                    style="font-size:14px;
-                                    color:#fff;"><i class="fas fa-list-ul"  style="margin-right:5px"></i>
-                                    Registros de las poropiedades de las Computadoras de la Empresa
-                                </h4>
+                    {% load static %}
+                    <div class="contenedor-tabla" style="background-image: url({% static 'assets/img/back-table.png' %});">
+                        <div class="panel panel-primary encabezado-tabla" >
+                            <div class="panel-heading">
+                                <i class="fa fa-database" style="color:#fff !important"></i><strong style="color:#fff"> REGISTROS DE PROPIEDADES</strong>
                             </div>
                         </div>
                         <div class="btn ml-auto">
-                            <a href="{% url 'crear_propiedad'  %}"  class="btn btn-success btn-sm"   style="color:#fff" >
-                                <i class="fas fa-plus-circle"></i>
-                                Agregar
+                            <a href="{% url 'crear_propiedad'  %}"  class="btn btn-primary "   style="color:#fff" >
+                                <i class="fas fa-plus"></i>
+                                Añadir Propiedad
                             </a>
                         </div>
                         <div class="card-body">
@@ -58,7 +43,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-md-4">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" name="search" placeholder="Buscar por procesador" value="{{ search }}">
+                                                <input type="text" class="form-control input-busqueda" name="search" placeholder="Buscar por procesador" value="{{ search }}">
                                                 <button class="btn btn-outline-secondary " type="submit" ><i class="fa fa-search"></i></button>
                                             </div>
                                         </div>
@@ -87,6 +72,7 @@
                                             <th><i class="far fa-hdd"></i></th>
                                             <th><i class="far fa-credit-card"></i> <i class="fas fa-video"></i></th>
                                             <th><i class="fas fa-laptop"><i/></th>
+                                            <th>Lector</th>
                                             <th style="width: 10%">Acción</th>
                                         </tr>
                                     </thead>
@@ -94,10 +80,21 @@
                                         {% for propiedad in page_obj %}
                                         <tr>
                                             <td>{{ propiedad.procesador }}</td>
-                                            <td>{{ propiedad.memoria_ram }}</td>
-                                            <td>{{ propiedad.disco }}</td>
+                                            <td>
+                                                {% for memoria in propiedad.lista_memorias_ram.all %}
+                                                    {{ memoria }}
+                                                    {% if not forloop.last %}, {% endif %}
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for disco in propiedad.lista_discos_duros.all %}
+                                                    {{ disco }}
+                                                    {% if not forloop.last %}, {% endif %}
+                                                {% endfor %}
+                                            </td>
                                             <td>{{ propiedad.gpu }}</td>
                                             <td>{{ propiedad.computadora.numero_pc }}</td>
+                                            <td>{{ propiedad.lector.clasificacion }}, Marca:{{ propiedad.lector.marca }}</td>
                                             <td>
                                                 <div class="form-button-action">
                                                     <a type="button" href="{% url 'ver_propiedades' propiedad.id  %}"

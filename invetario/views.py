@@ -289,6 +289,49 @@ def editar_disco_duro(request,pk):
         form=DiscoForm(instance=disco_duro)
     return render(request,'discos/crear.html',{'form':form})
             
+def eliminar_disco_duro(request,pk):
+    disco_duro=get_object_or_404(Discos,pk=pk)
+    if disco_duro:
+        disco_duro.delete()
+        return redirect('listar_discos_duro')
+
+#funcion de listar lectores cd-dvd
+def listar_lectores(request):
+    lista_lectores=LectorCD_DVD.objects.all()
+    return render(request,'lectores/listar.html',{'lista_lectores':lista_lectores})
+
+#crear lector 
+def crear_lector(request):
+    if request.method=='POST':
+        form = LectorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'!Lector guardado con éxito')
+            return redirect('listar_lectores')
+        return render(request,'lectores/crear.html',{'form':form})
+    else:
+        form=LectorForm()
+    return render(request,'lectores/crear.html',{'form':form})
+
+
+def editar_lector(request,pk):
+    lector=get_object_or_404(LectorCD_DVD,pk=pk)
+    if request.method=="POST":
+        form=LectorForm(request.POST,instance=lector)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'! Lector guardado con éxito')
+            return redirect('listar_lectores')
+        return render(request,'lectores/crear.html',{'form':form})
+    else:
+        form=LectorForm(instance=lector)
+    return render(request,'lectores/crear.html',{'form':form})
+            
+def eliminar_lector(request,pk):
+    lector=get_object_or_404(LectorCD_DVD,pk=pk)
+    if lector:
+        lector.delete()
+        return redirect('listar_lectores')
 
 #listar Propiedades
 def listar_propiedades(request):

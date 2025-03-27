@@ -54,14 +54,16 @@ class LectorForm(forms.ModelForm):
             'marca':forms.TextInput(attrs={'class':'form-control'})
         }
 
+
 class PropiedadForm(forms.ModelForm):
     class Meta:
-        model=Propiedad
-        fields=['procesador','lista_memorias_ram','lista_discos_duros','gpu','computadora']
+        model = Propiedad
+        fields = ['procesador', 'lista_memorias_ram', 'lista_discos_duros', 'gpu', 'computadora', 'lector']
         widgets = {
-            'procesador':forms.TextInput(attrs={'class':'form-control'}),
-            'memoria_ram':forms.TextInput(attrs={'class':'form-control'}),
-            'disco':forms.TextInput(attrs={'class':'form-control'}),
-            'gpu':forms.TextInput(attrs={'class':'form-control'}),
-            'computadora':forms.Select(attrs={'class':'form-control'})
+            'procesador': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Procesador'}),
+            'lista_memorias_ram': forms.SelectMultiple(attrs={'class': 'form-control', 'id': 'exampleFormControlSelect2', 'size': '5'}),
+            'lista_discos_duros': forms.SelectMultiple(attrs={'class': 'form-control', 'id': 'exampleFormControlSelect2', 'size': '5'}),
+            'gpu': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Tarjeta de Video'}),
+            'computadora': forms.Select(attrs={'class': 'form-control'}),
+            'lector': forms.Select(attrs={'class': 'form-control'})
         }

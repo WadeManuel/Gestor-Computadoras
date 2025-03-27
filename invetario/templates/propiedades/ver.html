@@ -9,17 +9,6 @@
     {% block contenido %}
     <div class="main-panel">
         <div class="content">
-            <div class="panel-header bg-primary-gradient">
-                <div class="page-inner py-5">
-                    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-                        <div>
-                            <h1 class="text-white pb-2 fw-bold">SIGFE - Sistema Informático para 
-                                la Gestión Seguridad Informática
-                            </h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="page-inner mt--5">
                 <div class="col-md-12">
                     <div class="card">
@@ -38,12 +27,18 @@
                                             {{ propiedad.procesador }}
                                         </li>
                                         <li>
-                                            <b>Ram Instalada:</b>
-                                            {{ propiedad.memoria_ram }}
+                                            <b>Lista Ram Instalada:</b>
+                                            {% for memoria in propiedad.lista_memorias_ram.all %}
+                                                {{ memoria }}
+                                                {% if not forloop.last %}, {% endif %}
+                                            {% endfor %}
                                         </li>
                                         <li>
-                                            <b>Disco Instaladao:</b>
-                                            {{ propiedad.disco }} 
+                                            <b>Lista Discos Duros Instaladao:</b>
+                                            {% for disco in propiedad.lista_discos_duros.all %}
+                                            {{ disco }}
+                                            {% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
                                         </li>
                                         <li>
                                             <b>GPU:</b>
@@ -53,6 +48,11 @@
                                             <b>Computadora:</b>
                                             {{ propiedad.computadora.numero_pc }}
                                         </li>
+                                        <li>
+                                            <b>Lector:</b>
+                                            {{ propiedad.lector.clasificacion }}-{{ propiedad.lector.marca }}
+                                        </li>
+                                        
                                     </ul>
                                 </div>
                         </div>

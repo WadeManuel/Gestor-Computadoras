@@ -1,9 +1,9 @@
 :root{
     --bg-color: #fff;
-    --bg-second-color:#262626;
+    --bg-second-color:#2c2d34;
     --main-color1:#1a2035;
-    --main-color:#007ff4;
-    --text-color:#55555;
+    --main-color:#ef3724;
+    --text-color:#575962;
     --text-color2:#fff;
 }
 section{
@@ -15,7 +15,7 @@ section{
 /*Estilos de cambiar contraseña su contenedor padre*/
 .mx-auto{
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    background-color:#fff;
+    background-color:var(--bg-color);
     border-radius: 10px;
 }
 /* Estilos del Home */
@@ -27,11 +27,50 @@ section{
     justify-content:center;
     min-height:78vh;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    margin-top:50px ;
-    border:1px solid #007bff;
+    margin-top:40px ;
 }
 
+.contenedor-tabla{
+    margin-top:40px ;
+    background-color: transparent !important;
+}
+/*Estilos para mi tabla donde voy a listar datos*/
+.table {
+    border-collapse: separate;
+    text-indent: initial;
+    border-spacing: 0.1px   !important;
+    border: 1px solid var(--main-color1) !important;
+}
+.table thead th{
+    border: 1px solid var(--main-color1) !important;
+}
+.table td,th{
+   
+    padding:0 5px;
+    height:50px !important;
+    border-color:5px #1a2035 !important;
+    background-color:transparent;
+    font-size:13px !important;
+    text-align:center;
+    color:var(--text-color) !important;
+    border: 1px solid var(--main-color1) !important;
+  
+}
+.encabezado-tabla{
+    background-color: var(--bg-second-color);
+    padding: 15px;
+}
+.input-busqueda{
+    background-color: transparent !important;
+    color: var(--text-color) !important;
+}
+
+.input-busqueda::placeholder{
+    color: var(--text-color);
+}
+.col-form-label{
+    color: var(--text-color) !important;
+}
 @media (max-width:900px){
     .card{
         padding: 20px 5%;
@@ -71,6 +110,7 @@ section{
     -webkit-text-stroke:.7px #007bff;
     background-image:linear-gradient(#007bff,#007bff);
     background-repeat:no-repeat;
+    text-shadow: 1px 2px 5px #007bff;
     -webkit-background-clip:text;
     background-position:0 0 ;
     animation:homeBgText 6s linear infinite;
@@ -278,34 +318,6 @@ background:#fff;
     color:#555;
 }
 
-/*Estilos para mi tabla donde voy a listar datos*/
-table {
-    border-collapse: separate;
-    text-indent: initial;
-    border-spacing:0.1px;
-}
-
-thead,tfoot{
-    text-align:center;
-    font-size:13px;
-    box-shadow:0 0px 2px #ebedf2;
-}
-thead,tfoot tr{
-    box-shadow:0 0px 2px #ebedf2;
-}
-
-table td,th{
-    padding:0 5px;
-    height:50px !important;
-    border-color: 2px #ebedf2;
-    background-color: #f9fbfd;
-    color: #111 !important;
-    font-size:13px !important;
-    box-shadow: 10px 0px 30px #ebedf2 !important;
-    text-align:center;
-    color:var(--bs-emphasis-color) !important;
-}
-
 .nav-primary p,i{
     color:var(--bs-emphasis-color) !important;
 }
@@ -323,6 +335,7 @@ table td,th{
     }
 }
 .theme-list {
+  
     position: relative;
     padding-left: 30px;
     list-style: none;
@@ -370,5 +383,13 @@ li {
 .theme-red .fg-theme {
     color: #EF3724 !important;
 
+}
+
+
+/* Estilo para el select de múltiples selecciones */
+#exampleFormControlSelect2{
+    height: auto; /* Permite que el campo se ajuste automáticamente */
+    min-height: 100px; /* Establece una altura mínima */
+    overflow-y: auto; /* Permite el desplazamiento vertical si hay muchas opciones */
 }
 

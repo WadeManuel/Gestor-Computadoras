@@ -25,6 +25,7 @@
 	<link rel="stylesheet" href="{% static 'assets/css/atlantis.min.css' %}">
 	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 	<link rel="stylesheet" href="{% static 'assets/css/lista.css' %}">
+	
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="{% static 'assets/css/demo.css' %}">
@@ -33,7 +34,7 @@
 	<div class="wrapper" id="home">
 		<div class="main-header">
 			<!-- Logo Header -->
-			<div class="logo-header" data-background-color="" style="background-color:#1d4e82;box-shadow:0 0 1px #000">
+			<div class="logo-header" data-background-color="blue" >
 				<a href="{% url 'base' %}" class="logo-container logo d-flex align-items-center" >
 					<span class="logo-text logo-img">SIGC</span>
 				</a>
@@ -52,7 +53,7 @@
 			<!-- End Logo Header -->
 
 			<!-- Navbar Header -->
-			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="" style="background-color:#1d4e89">
+			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2" >
 				<div class="container-fluid">
 					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
 						<!-- User Profile Dropdown -->
@@ -140,6 +141,18 @@
 								<p  class="info_nav" >Memorias Ram</p>
 							</a>
 						</li>
+						<li class="nav-item">
+							<a href="{% url 'listar_discos_duros' %}">
+								<i class="fas fa-hdd"></i>
+								<p  class="info_nav" >Discos Duro</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'listar_lectores' %}">
+								<i class="fas fa-cd"></i>
+								<p  class="info_nav" >Lectores </p>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -149,7 +162,7 @@
 		<div class="main-panel">
 			<div class="content">
 				<div class="page-inner mt--5">
-					<div class="card " style="padding:20px">
+					<div class="card " style="padding:25px" >
                         <div class="card-content">
                             <div class="moving-text">
 								<h1>Gestor Seguridad</h1>
@@ -305,8 +318,6 @@
 			});
 		});
 	</script>
-	 <!--- scroll riveal-->
-	 <script src="./static/js/scrollreveal.js"></script>
 	 <!--Codigo Script-->
 	<script >
 		/*Boton de ir arriba*/ 
@@ -331,21 +342,6 @@
 		}
 		irArriba(500);
 	</script>
-	<script>
-		/*-----Scroll reveal-------------*/ 
-			ScrollReveal({
-			   reset: true,
-			   distance:'80px',
-			   duration:2000,
-			   delay:200
-		   });
-
-		   ScrollReveal().reveal('.moving-text,.heading,.encabezado,.container-img2 img ', { origin:'top' });
-		   ScrollReveal().reveal('.image-container img,.card-box,.container_servicios,.contact form', { origin:'bottom' });
-		   ScrollReveal().reveal('.moving-text h2,.moving-text p,.contenedor-img img', { origin:'left' });
-		   ScrollReveal().reveal('.moving-text h3,.contenedor-info', { origin:'right' });
-   </script>
-
 	{% endblock %}
 	
 </body>

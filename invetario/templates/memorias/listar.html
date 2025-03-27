@@ -10,15 +10,6 @@
     {% block contenido %}
     <div class="main-panel">
         <div class="content">
-            <div class="panel-header "  style="background-color:#1d4e82">
-                <div class="page-inner py-5">
-                    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-                        <div>
-                            <h1 class="text-white pb-2 fw-bold">Gestor de Información de la seguridad de la empresa de electromedicina</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="page-inner mt--5">
                 <div class="col-md-12">
                     {% if messages %}
@@ -33,23 +24,17 @@
                         </ul>   
                     </div>
                     {% endif %}
-                    <div class="card">
-                        <div class="card-header"
-                        style="background-color:#343a40;
-                        border-bottom: none !important;
-                        border-radius:9px 9px 0px 0px">
-                            <div class="d-flex align-items-center ">
-                                <h4 class="card-title"
-                                    style="font-size:14px;
-                                    color:#fff;"><i class="fas fa-list-ul"  style="margin-right:5px"></i>
-                                    Registros de las memorias Ram de las computadoras
-                                </h4>
+                    {%load static%}
+                    <div class="contenedor-tabla" style="background-image: url({% static 'assets/img/back-table.png' %});">
+                        <div class="panel panel-primary encabezado-tabla">
+                            <div class="panel-heading">
+                                <i class="fa fa-database" style="color:#fff !important"></i><strong style="color:#fff"> REGISTROS DE MEMORIAS RAM</strong>
                             </div>
                         </div>
                         <div class="btn ml-auto">
-                            <a href="{% url 'crear_memoria_ram'  %}"  class="btn btn-primary btn-sm"   style="color:#fff" >
-                                <i class="fas fa-plus-circle"></i>
-                                Agregar
+                            <a href="{% url 'crear_memoria_ram'  %}"  class="btn btn-primary "   style="color:#fff" >
+                                <i class="fas fa-plus"></i>
+                              Añadir memoria ram
                             </a>
                         </div>
                         <div class="card-body">
@@ -58,7 +43,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-md-4">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" name="search" placeholder="Buscar marca" value="{{ search }}">
+                                                <input type="text" class="form-control input-busqueda" name="search" placeholder="Buscar marca" value="{{ search }}">
                                                 <button class="btn btn-outline-secondary " type="submit" ><i class="fa fa-search"></i></button>
                                             </div>
                                         </div>
@@ -86,37 +71,37 @@
                                             <th>Capacidad</th>
                                             <th>Marca</th>
                                             <th>Velocidad</th>
-                                            <th style="width: 10%">Acción</th>
+                                            <th style="width: 10%">OPCIONES</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for memoria in lista_memorias_ram %}
+                                        {% for m in lista_memorias_ram %}
                                         <tr>
-                                            <td>{{ memoria.clasificacion }}</td>
-                                            <td>{{ memoria.capacidad}} (Mb)</td>
-                                            <td>{{ memoria.marca }}</td>
-                                            <td>{{ memoria.velocidad }}</td>
+                                            <td>{{ m.clasificacion }}</td>
+                                            <td>{{ m.capacidad }}</td>
+                                            <td>{{ m.marca }}</td>
+                                            <td>{{ m.velocidad }}</td>
                                             <td>
                                                 <div class="form-button-action">
-                                                    <a type="button" href="{% url 'editar_memoria_ram' memoria.id  %}"
+                                                    <a type="button" href="{% url 'editar_memoria_ram' m.id  %}"
                                                         class="btn btn-primary btn-sm" >
                                                         <i class="fa fa-edit"></i>Editar
                                                     </a>
                                                     <button type="button" data-toggle="modal" title=""
                                                         class="btn btn-danger btn-sm"
-                                                        data-target="#eliminarModal {{ memoria.id }}" style="margin-left:5px">
+                                                        data-target="#eliminarModal {{ m.id }}" style="margin-left:5px">
                                                         <i class="fa fa-trash"></i> Eliminar
                                                     </button>
                                                <!-- Modal de Confirmación de Eliminación -->
-                                               <div class="modal fade" id="eliminarModal {{ memoria.id }}"
+                                               <div class="modal fade" id="eliminarModal {{ m.id }}"
                                                    tabindex="-1" role="dialog"
-                                                   aria-labelledby="eliminarModalLabel {{ memoria.id }}"
+                                                   aria-labelledby="eliminarModalLabel {{ m.id }}"
                                                    aria-hidden="true">
                                                    <div class="modal-dialog" role="document">
                                                        <div class="modal-content">
                                                            <div class="modal-header">
                                                                <h5 class="modal-title"
-                                                                   id="eliminarModalLabel {{ memoria.id }}">
+                                                                   id="eliminarModalLabel {{ m.id }}">
                                                                    Confirmar Eliminación</h5>
                                                                <button type="button" class="close"
                                                                    data-dismiss="modal" aria-label="Close">
@@ -125,12 +110,12 @@
                                                            </div>
                                                            <div class="modal-body">
                                                                ¿Estás seguro que deseas eliminar esta memoria ram
-                                                               <strong>{{ memoria.clasificacion }} </strong>?
+                                                               <strong>{{ m.clasificacion }} </strong>?
                                                            </div>
                                                            <div class="modal-footer">
                                                                <button type="button" class="btn btn-secondary"
                                                                    data-dismiss="modal">Cancelar</button>
-                                                               <form action="{% url 'eliminar_memoria_ram' memoria.id  %}"
+                                                               <form action="{% url 'eliminar_memoria_ram' m.id  %}"
                                                                    method="delete">
                                                                    {% csrf_token %}
                                                                    <input type="submit" class="btn btn-danger"
@@ -142,6 +127,12 @@
                                                </div>
                                            </div>
                                                 </div>
+                                            </td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="8" class="text-center">
+                                                <strong><i class="fa fa-frown-o"></i> No hay lectores registrados.</strong> 
                                             </td>
                                         </tr>
                                         {% endfor %}
